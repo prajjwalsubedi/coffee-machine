@@ -41,10 +41,11 @@ def check_resource(order_ingredients):
     return True
 
 
-def subtract_resources(order_ingredients):
+def subtract_resources(order_ingredients, return_money):
     for item in order_ingredients:
         resources[item] -= order_ingredients[item]
     print(f"Here is your {request} ☕️. Enjoy!")
+    print(f"Your return is: ${return_money}.")
 
 
 def entry(request, status):
@@ -70,6 +71,7 @@ def money():
     penny = int(input("how many penny?: "))
     total_money = (quarters * 25 + dimes * 10 + nickles * 5 + penny) / 100
     total_cost = MENU[request]["cost"]
+    
     return total_money - total_cost
 
 
@@ -87,7 +89,9 @@ while status == "on":
         order_ingredients = MENU[request]["ingredients"]
         if check_resource(order_ingredients):
             return_money = money()
-            subtract_resources(order_ingredients)
-            income += MENU[request]["cost"]
-            print(resources)
-            print(f"Your return is: ${return_money}.")
+            if return_money < 0:
+                print("Not Enough Money")
+            else:
+                subtract_resources(order_ingredients, return_money)
+                income += MENU[request]["cost"]
+            
