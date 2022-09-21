@@ -94,4 +94,5 @@ while status == "on":
             else:
                 subtract_resources(order_ingredients, return_money)
                 income += MENU[request]["cost"]
-            
+
+
