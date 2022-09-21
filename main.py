@@ -44,7 +44,7 @@ def check_resource(order_ingredients):
 def subtract_resources(order_ingredients):
     for item in order_ingredients:
         resources[item] -= order_ingredients[item]
-    print(f"Here id your {request} ☕️. Enjoy!")
+    print(f"Here is your {request} ☕️. Enjoy!")
 
 
 def entry(request, status):
@@ -55,7 +55,6 @@ def entry(request, status):
         print(f"Income: ${income}")
     elif request == "off":
         status = "off"
-        print("Machine is OFF")
         return status
     # elif request == "on":
     #     status == "on"
@@ -78,9 +77,13 @@ status = "on"
 income = 0
 # TODO: 3. game
 while status == "on":
-    request = input("What would you like? (espresso/latte/cappuccino): ")
-    request = entry(request, status)
-    if request != "off" or request != "report":
+    request = input("What would you like? (espresso/latte/cappuccino): ").lower()
+    entry(request, status)
+    if request == "off":
+        break
+    elif request == "report":
+        pass
+    else:
         order_ingredients = MENU[request]["ingredients"]
         if check_resource(order_ingredients):
             return_money = money()
